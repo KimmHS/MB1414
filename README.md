@@ -11,6 +11,12 @@ Parity| 0 / None
 Stop Bit |1
 Flow Control |0/None 
 
+```bash
+# Add USER to dialout group for serial port communication.
+sudo usermod -a -G dialout $USER
+<re-login>
+```
+
 # Serial Output Format
 The sensor output is provided over the COM port (or equivalent) in an ASCII character format. If a target is detected at
 8 inches the output appears as follows: “R008 P1<carriage return>”. The output is an ASCII capital “R”, followed by

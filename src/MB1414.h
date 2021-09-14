@@ -5,6 +5,7 @@
 #include <thread>
 #include <vector>
 #include <map>
+#include <atomic>
 using std::vector;
 using std::string;
 using std::map;
@@ -16,6 +17,7 @@ class MB1414{
     private :
     unsigned long baud = 57600;
     uint8_t data_read[8];
+    std::atomic<short>  val;
 
     vector<serial::PortInfo> device_info;
     map<string,unsigned int> cur_info;
@@ -40,6 +42,7 @@ class MB1414{
     inline void Stop();
     inline void TogglePrint();
     inline string GetInfoStr();
+    inline short GetValue();
     inline vector<serial::PortInfo> GetInfo();
 };
 
@@ -52,6 +55,7 @@ MB1414::MB1414(){
 
 MB1414::~MB1414(){
     is_running  = false;
+    delete thread_run;
 }
 
 void MB1414::Run(string port){
@@ -62,12 +66,12 @@ void MB1414::Run(string port){
 
 void MB1414::Stop(){
   is_running = false;
-  thread_run->join();
 }
 
 void MB1414::read(string port){
 
   serial::Serial my_serial(port, baud, serial::Timeout::simpleTimeout(1000)); 
+  int idx;
 
   while(is_running){
     try{
@@ -75,19 +79,31 @@ void MB1414::read(string port){
         if (my_serial.isOpen()){
             size_t available;
             available = my_serial.available();
+
             size_t string_read = my_serial.read(data_read, 8);
 
             if(do_print){
-              printf("%c",data_read[0]);
-              printf("%c",data_read[1]);
-              printf("%c",data_read[2]);
-              printf("%c",data_read[3]);
-              printf("%c",data_read[4]);
-              printf("%c",data_read[5]);
-              printf("%c",data_read[6]);
-              printf("%c",data_read[7]);
+              printf("[0] %c ",data_read[0]);
+              printf("[1] %c ",data_read[1]);
+              printf("[2] %c ",data_read[2]);
+              printf("[3] %c ",data_read[3]);
+              printf("[4] %c ",data_read[4]);
+              printf("[5] %c ",data_read[5]);
+              printf("[6] %c ",data_read[6]);
+              printf("[7] %c ",data_read[7]);
               printf("\n");
             }
+
+            // Seiral Porint input is not stable
+            for(idx =0; idx<8;idx++){
+              // ASCII to 10-digit-number
+              if(data_read[idx] == 'R'){
+                val.store((data_read[idx+2]-48)*10 + (data_read[idx+3]-48));
+                break;
+              }
+            }
+            if(idx == 8)
+              val.store(-1);
             //TB_device.setText(GetQStringFromUnsignedChar(data_read));
         }
     }
@@ -135,6 +151,10 @@ string MB1414::GetInfoStr(){
 
 vector<serial::PortInfo> MB1414::GetInfo(){
     return device_info;
+}
+
+short MB1414::GetValue(){
+  return val.load();
 }
 
 #endif
