@@ -10,12 +10,22 @@ Data bits |8
 Parity| 0 / None
 Stop Bit |1
 Flow Control |0/None 
-
+  
+  
+## Permission   
+  
+it requires sudo to use serial port.    
+  
 ```bash
 # Add USER to dialout group for serial port communication.
 sudo usermod -a -G dialout $USER
 <re-login>
-```
+```  
+
+  
+  
+  
+ 
 
 # Serial Output Format
 The sensor output is provided over the COM port (or equivalent) in an ASCII character format. If a target is detected at
