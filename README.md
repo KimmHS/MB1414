@@ -1,5 +1,5 @@
 # MB1434
-short example of using MB1134 USB-ProxSonar®-EZ3  
+short example of using MB1414 USB-ProxSonar®-EZ3  
 
 http://www.vctec.co.kr/web/product/maxbotix/documents/USB-ProxSonar-EZ_Datasheet.pdf
 
