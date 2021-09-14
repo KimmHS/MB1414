@@ -1,0 +1,6 @@
+[submodule "bin"]
+	path = bin
+	url = https://github.com/koobh/QtBin
+[submodule "lib/serial"]
+	path = lib/serial
+	url = https://github.com/wjwwood/serial.git
