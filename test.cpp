@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   int cnt = 0; 
   while(cnt++ < 10){
   //while(1){
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
       std::cout<<sonar.GetValue()<<std::endl;
   }
 
