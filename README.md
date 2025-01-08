@@ -1,4 +1,7 @@
 # MB1434
+# Making so 
+# g++ -shared -fPIC -o libMB1414.so MB1414.cpp /MB1414/lib/serial/src/serial.cc \MB1414/lib/serial/src/impl/unix.cc \/MB1414/lib/serial/src/impl/list_ports/list_ports_linux.cc \-I/MB1414/lib/serial/include \-lpthread
+
 short example of using MB1414 USB-ProxSonar®-EZ3  
 
 http://www.vctec.co.kr/web/product/maxbotix/documents/USB-ProxSonar-EZ_Datasheet.pdf
