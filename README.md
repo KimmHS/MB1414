@@ -1,10 +1,36 @@
-## MB1434
-## Making so 
-''' g++ -shared -fPIC -o libMB1414.so MB1414.cpp /MB1414/lib/serial/src/serial.cc \MB1414/lib/serial/src/impl/unix.cc \/MB1414/lib/serial/src/impl/list_ports/list_ports_linux.cc \-I/MB1414/lib/serial/include \-lpthread '''
-
+# MB1434
 short example of using MB1414 USB-ProxSonar®-EZ3  
+This project provides a **Python wrapper** for a **C++-based ultrasonic sensor driver**, allowing you to control and read data from the sensor easily within Python environments.
+
+The original driver is written in C++ for low-level hardware communication, and this wrapper bridges the functionality to Python, making it more accessible for data logging, visualization, and integration into larger Python-based systems.
+---
 
 http://www.vctec.co.kr/web/product/maxbotix/documents/USB-ProxSonar-EZ_Datasheet.pdf
+
+## Installation & test
+```bash
+git clone https://github.com/KimmHS/MB1414.git
+cd MB1414/lib
+
+#Initialize submodule
+git submodule init
+git submodule update
+cd ..
+
+#Build the Library(so)
+cd src
+g++ -shared -fPIC -o libMB1414.so MB1414.cpp \
+    ../lib/serial/src/serial.cc \
+    ../lib/serial/src/impl/unix.cc \
+    ../lib/serial/src/impl/list_ports/list_ports_linux.cc \
+    -I../lib/serial/include \
+    -lpthread
+cd ..
+
+# test
+python test_sensor.py
+```
+
 
 label|Value 
 ---|---
