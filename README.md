@@ -1,6 +1,5 @@
-# MB1434
+# MB1414
 short example of using MB1414 USB-ProxSonar®-EZ3  
-This project provides a **Python wrapper** for a **C++-based ultrasonic sensor driver**, allowing you to control and read data from the sensor easily within Python environments.
 
 The original driver is written in C++ for low-level hardware communication, and this wrapper bridges the functionality to Python, making it more accessible for data logging, visualization, and integration into larger Python-based systems.
 ---
