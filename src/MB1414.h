@@ -6,30 +6,28 @@
 #include <vector>
 #include <map>
 #include <atomic>
+#include <mutex>
+#include <string>
 
 using std::vector;
 using std::string;
 using std::map;
-using std::to_string;
-using std::make_pair;
 
 class MB1414 {
     private:
         unsigned long baud = 57600;
         uint8_t data_read[8];
         std::atomic<short> val;
-
-        vector<serial::PortInfo> device_info;
         map<string, unsigned int> cur_info;
-
         std::thread* thread_run;
+        std::thread* update_thread;
         bool is_running;
         bool do_print;
-
         string str_device_info;
+        std::mutex device_info_mutex;
 
-        inline void list();
-        inline void read(string port);
+        void read(string port);
+        void update_device_info();
 
     public:
         MB1414();
@@ -38,6 +36,8 @@ class MB1414 {
         void Run(string port);
         void Stop();
         void TogglePrint();
+        void list();
+        vector<serial::PortInfo> device_info;
         string GetInfoStr();
         short GetValue();
         vector<serial::PortInfo> GetInfo();
